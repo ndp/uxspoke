@@ -1,4 +1,9 @@
-Uxspoke::Application.routes.draw do
+Olive::Application.routes.draw do
+  get "demo/index"
+  get "demo/ux_wheel"
+  get "demo/olive"
+  root :to=>'demo#index'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

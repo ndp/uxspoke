@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Uxspoke::Application.config.secret_token = 'd7a32b328de1f863fb0dd4dd7c7ef1c06f244a838e6012cfbcadf5ea2f6e836b0aaf22009c006f4351eac7b4870e609b1f709abc7d1f7b50238b0f877de5dc0e'
+Olive::Application.config.secret_token = '0ee32bc36c4d863b705229b1318439cff973cbac0dcd3c1bcfe72fca321dd6fe87ff28646f4e37cbde124084df48aa7c20b77ae87c35eb3ea1c329a451a1a3a9'

@@ -1,10 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Uxspoke</title>
+  <title>Olive</title>
   <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag 'jquery-1.4.2.min.js',
+                             'jquery-ui-1.8.5.custom.min.js',
+                             'jquery.mousewheel.js',
+                             'csster',
+                             'once',
+                             'color_factory',
+                             'usability_questions',
+                             'wheel', 'olive', 'application', 'ux_wheel' %>
   <%= csrf_meta_tag %>
+  <style>
+      body {
+          background-color: white;
+      }
+  </style>
 </head>
 <body>
 
