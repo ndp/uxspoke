@@ -27,35 +27,6 @@ var canvasWrapper = function(element) {
 };
 
 
-function circlesIntersect(circleA, circleB) {// returns true if circles are overlapping
-  var dx = circleB.x - circleA.x;
-  var dy = circleB.y - circleA.y;
-  var dist = Math.sqrt(dx * dx + dy * dy);
-  // if the distance between the centers of the circles is less than the combined
-  // radii, then the circles must be overlapping
-  return circleA.radius + circleB.radius > dist;
-}
-
-function circleIntersectsAny(circleA, circles) {
-  for (var i = 0; i < circles.length; i++) {
-    if (circles[i].x &&
-            circlesIntersect(circleA, circles[i])) {
-      return true;
-    }
-  }
-  return false;
-}
-
-function circleWithinRectangle(circle, r) {
-  return (circle.x - circle.radius) > r.left &&
-          (circle.y - circle.radius) > r.top &&
-          (circle.x + circle.radius) < r.right &&
-          (circle.y + circle.radius) < r.bottom;
-}
-
-
-
-
 if (typeof console == 'undefined') {
   console = {
     log: function() {
