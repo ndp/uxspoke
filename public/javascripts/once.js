@@ -1,3 +1,5 @@
+// Copyright (c) 2010 Andrew J. Peterson / NDP Software. All Rights Reserved.
+
 // Run the function once, and only once
 var once = function(fn) {
 

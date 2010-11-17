@@ -1,3 +1,4 @@
+// Copyright (c) 2010 Andrew J. Peterson / NDP Software. All Rights Reserved.
 $(function() {
 
     var bg = phaseToColor('requirements').lighten(10).saturate(-30);

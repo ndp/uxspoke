@@ -1,3 +1,4 @@
+// Copyright (c) 2010 Andrew J. Peterson / NDP Software. All Rights Reserved.
 /**
  * Canvas abstraction implementation
  * see http://svgopen.org/2009/papers/54-SVG_vs_Canvas_on_Trivial_Drawing_Application/

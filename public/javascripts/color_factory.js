@@ -1,3 +1,4 @@
+// Copyright (c) 2010 Andrew J. Peterson / NDP Software. All Rights Reserved.
 if (typeof ColorFactory == 'undefined') {
     ColorFactory = {
         sixHexDigits: 0xffffff,

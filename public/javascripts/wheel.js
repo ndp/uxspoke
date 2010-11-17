@@ -1,3 +1,6 @@
+// Copyright (c) 2010 Andrew J. Peterson / NDP Software. All Rights Reserved.
+
+
 /**
  * Draws a "wheel" of equal size wedges, colored and labelled as indicated by values passed in.
  * There is the concept of a "current" wedge, which is the one on the right side (whose text

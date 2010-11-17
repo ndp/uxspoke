@@ -1,3 +1,4 @@
+// Copyright (c) 2010 Andrew J. Peterson / NDP Software. All Rights Reserved.
 function generateUXQuestions() {
 
     // Extract questions hash of question => [activity[0], activity[1]...]
