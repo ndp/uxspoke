@@ -47,7 +47,7 @@ $(function() {
                 }
             },
             '.what': {
-                has: roundedCorners('top',10),
+                has: roundedCorners('top', 10),
                 top: 225,
                 height: 130,
                 fontStyle: 'italic',
@@ -74,24 +74,29 @@ $(function() {
                 }
             },
             '.how': {
-                top: 440 -25 -30,
+                top: 440 - 25 - 30,
                 height: 300 + 30,
-                has: roundedCorners('bottom',10),
+                has: roundedCorners('bottom', 10),
                 ul: {
                     display: 'block',
                     padding: 0, margin: 0,
                     has: clearfix(),
                     li: {
-                        listStylePosition: 'inside',
-//                        display: 'block',
-//                        'float': 'left',
+                        display: 'block',
+                        'float': 'left',
+                        font: '15px/19px georgia',
+                        border: '1px solid white',
+                        padding: '2px 3px',
+                        marginBottom: -1,
+                        marginRight: -1,
                         a: {
-                            color: '#f2e4ae'.darken(50),
+                            color: '#ffffff',//'#f2e4ae'.darken(50),
                             textDecoration: 'none',
-                            paddingRight: 10,
-                            '&:hover': {textDecoration: 'underline'},
-                            '&:before': { content: 'abc' }
-                        }
+                            '&:hover': {textDecoration: 'underline'}
+                        },
+                        '&.good': { color: 'white' },
+                        '&.bad': { opacity: .2 },
+                        '&:hover.bad': { opacity: .3}
                     }
                 }
             },
@@ -303,6 +308,7 @@ $(function() {
 
 
     var uxQuestions = generateUXQuestions();
+    var uxActivities = generateUxActivities();
 
     function phaseToColor(phase) {
 //        var c = ColorFactory.interpolate('#DE790A'.lighten(10), '#BD5108', 7);
@@ -396,11 +402,29 @@ $(function() {
                          $('<h3>').html('&ldquo;' + item.label + '&rdquo;').appendTo($what);
                          $('<h6>').text('consider...').appendTo($how);
                          var $names = $('<ul>');
-                         for (var i = 0; i < data.length; i++) {
+
+                         for (var ai in uxActivities) {
                              var $li = $('<li>').appendTo($names);
-                             var link = data[i].ref || 'http://www.google.com/search?q=' + data[i].name;
-                             $('<a></a>').attr('href', link).attr('target', '_blank').text(data[i].name).appendTo($li);
+                             var a = uxActivities[ai];
+                             var yes = false;
+                             for (var i = 0; i < data.length; i++) {
+                                 if (data[i].name == a.name) yes = true;
+                             }
+                             var link = a.ref || 'http://www.google.com/search?q=' + a.name;
+                             $('<a></a>').
+                                     attr('href', link).
+                                     attr('target', '_blank').
+                                     text(a.name).appendTo($li);
+                             $li.addClass(yes ? 'good' : 'bad').
+                                     css('backgroundColor', phaseToColor(a.phase));
                          }
+
+
+//                         for (var i = 0; i < data.length; i++) {
+//                             var $li = $('<li>').appendTo($names);
+//                             var link = data[i].ref || 'http://www.google.com/search?q=' + data[i].name;
+//                             $('<a></a>').attr('href', link).attr('target', '_blank').text(data[i].name).appendTo($li);
+//                         }
                          $names.appendTo($how);
 
 
