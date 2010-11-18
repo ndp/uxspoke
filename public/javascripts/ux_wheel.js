@@ -20,67 +20,99 @@ $(function() {
 
         },
         '#answers': {
-            display: 'none',
+//            display: 'none',
             padding: 20,
-            backgroundColor: bg.darken(30),
-            color: 'white',
+            backgroundColor: 'transparent',//bg.darken(30),
+            color: 'black',
             position: 'absolute',
             top: wheelTop + 15,
             left: wheelLeft + 2 * wheelRadius + 10,
             width: 350,
-            minHeight: 390,
+            height: 715,
             font: '18px/30px georgia',
-            border: '1px 1px 1px 0 solid #666',
-            has: [roundedCorners(10), boxShadow([0,0], 10, bg.darken(30))],
+            '.box': {
+                border: '1px 1px 1px 0 solid #666',
+                position: 'absolute',
+                padding: '20px 10px 10px 10px',
+                width: 350 - 20,
+                backgroundColor: '#f2e4ae',
+                color: '#f2e4ae'.darken(50),
+                has: [boxShadow([0,0], 10, bg.darken(30))],
+                h6: {
+                    padding: 0,
+                    margin: 0,
+                    font: '15px/15px georgia',
+                    paddingBottom: 10,
+                    fontStyle: 'italic'
+                }
+            },
+            '.what': {
+                has: roundedCorners('top',10),
+                top: 225,
+                height: 130,
+                fontStyle: 'italic',
+                '*': {
+                    padding: 0,
+                    margin: 0
+                },
+                h3: {
+                    letterSpacing: 0,
+                    fontSize:22,
+                    lineHeight: 30,
+                    paddingLeft: 15,
+                    textIndent: -15
+                }
+            },
+            '.when': {
+                height: 160,
+                top: 0,
+                has: roundedCorners(10),
+                p: {
+                    font: '15px/25px georgia',
+                    margin: 0,
+                    paddingRight: 30
+                }
+            },
+            '.how': {
+                top: 440 -25 -30,
+                height: 300 + 30,
+                has: roundedCorners('bottom',10),
+                ul: {
+                    display: 'block',
+                    padding: 0, margin: 0,
+                    has: clearfix(),
+                    li: {
+                        listStylePosition: 'inside',
+//                        display: 'block',
+//                        'float': 'left',
+                        a: {
+                            color: '#f2e4ae'.darken(50),
+                            textDecoration: 'none',
+                            paddingRight: 10,
+                            '&:hover': {textDecoration: 'underline'},
+                            '&:before': { content: 'abc' }
+                        }
+                    }
+                }
+            },
             '.nib': {
                 position: 'absolute',
-                borderRight: '20px solid red',
-                borderTop: '20px solid transparent',
-                borderBottom: '20px solid transparent',
-                top: 365,
-                left: -15
+//                borderRight: '40px solid red',
+//                borderTop: '20px solid transparent',
+//                borderBottom: '0 solid transparent',
+                height: 1,
+                backgroundColor: '#000',
+                width: 390,
+                top: 385,
+                left: -20
             },
-            h6: {
-                font: '15px/15px georgia',
-                padding: 0,
-                margin: 0,
-                opacity: .8,
-                fontStyle: 'italic'
-            },
-            h5: {
-                font: '16px/25px georgia',
-                padding: 0,
-                margin: 0,
-                opacity: .8,
-                fontStyle: 'italic'
-            },
-            h3: {
-                letterSpacing: 2,
-                fontSize:24,
-                lineHeight: 30,
-                paddingLeft: 15,
-                textIndent: -15,
-                fontStyle: 'italic'
-            },
-            ul: {
-                display: 'block',
-                padding: 0,
-                li: {
-                    listStylePosition: 'inside',
-                    a: {
-                        color: '#ffffff',
-                        textDecoration: 'none',
-                        '&:hover': {textDecoration: 'underline'},
-                        '&:before': { content: 'abc' }
-                    }
-                },
-                paddingBottom: 20,
-                borderBottom: '1px dashed #999'
-            },
-            p: {
-                font: '15px/25px georgia',
-                margin: 0,
-                paddingRight: 30
+            '.mask': {
+                position: 'absolute',
+                height: 10,
+                backgroundColor: '#f2e4ae',
+                width: 350,
+                top: 375,
+                zIndex: 10
             }
         },
         '#about': {
@@ -136,10 +168,10 @@ $(function() {
             has: clearfix(),
             display: 'block',
             padding: 0,
-            marginBottom: 0,
+            margin: '5px 0',
             li: {
                 display: 'block',
-                float: 'left',
+                'float': 'left',
                 padding: '5px 10px',
                 marginRight: 2,
                 color: 'white',
@@ -326,27 +358,29 @@ $(function() {
 
     $('#circle').bind('focusOn',
                      function(e, item) {
-
-                         $('#answers').empty().slideDown({ duration: 'fast', easing: 'easeOutBounce'}).css({color: item.bubbleColor,backgroundColor: item.bubbleBackgroundColor});
-                         $('<h6>').text('If your questions are like...').appendTo('#answers');
-                         $('<h3>').html('&ldquo;' + item.label + '&rdquo;').appendTo('#answers');
-                         $('<h6>').text('consider...').appendTo('#answers');
-                         var $names = $('<ul>');
                          var data = item.data;
-                         for (var i = 0; i < data.length; i++) {
-                             var $li = $('<li>').appendTo($names);
-                             var link = data[i].ref || 'http://www.google.com/search?q=' + data[i].name;
-                             $('<a></a>').attr('href', link).attr('target', '_blank').text(data[i].name).appendTo($li);
-                         }
-                         $names.appendTo('#answers');
 
-                         $('<h6>').text('These questions come up...').appendTo('#answers');
+                         // bubbleColor too
+                         $('#answers').empty().animate({ opacity: 1.0}, 'fast');
+                         //.css({color: item.bubbleBackgroundColor,borderColor: item.bubbleBackgroundColor});
+
+                         $('#answer .nib').css({backgroundColor: item.bubbleBackgroundColor});
+
+                         var $when = $('<div>').addClass('when').appendTo('#answers').animate({
+//                             backgroundColor:item.bubbleBackgroundColor,
+//                             color:item.bubbleBackgroundColor.darken(30)
+                         }, 'fast');
+                         var $what = $('<div>').addClass('what').appendTo('#answers'); //.css({backgroundColor: item.bubbleBackgroundColor})
+                         var $how = $('<div>').addClass('how').appendTo('#answers');
+                         $('#answers').find('div').addClass('box');
+
+//                         $('<h6>').text('These questions come up...').appendTo($when);
                          var phase = data[0].phase;
                          $phases = $('<ol>');
-                         $('<li>').text('before').addClass(phase.indexOf('requirements') >= 0 ? 'on' : 'off').appendTo($phases);
-                         $('<li>').text('design & build').addClass(phase.indexOf('design') >= 0 ? 'on' : 'off').appendTo($phases);
-                         $('<li>').text('refine').addClass(phase.indexOf('test') >= 0 ? 'on' : 'off').appendTo($phases);
-                         $phases.appendTo('#answers');
+                         $('<li>').text('before').addClass('requirements').addClass(phase.indexOf('requirements') >= 0 ? 'on' : 'off').appendTo($phases);
+                         $('<li>').text('design & build').addClass('design').addClass(phase.indexOf('design') >= 0 ? 'on' : 'off').appendTo($phases);
+                         $('<li>').text('refine').addClass('test').addClass(phase.indexOf('test') >= 0 ? 'on' : 'off').appendTo($phases);
+                         $phases.appendTo($when);
                          $('<p></p>').html({
                              'requirements': 'These questions are usually asked <em>before</em> product definition starts.',
                              'requirements,design': 'These questions are usually asked <em>before or during</em> product definition, while early design ideas develop.',
@@ -355,14 +389,28 @@ $(function() {
                              'test': 'These questions are usually asked <em>while iterating on</em> the product.',
                              'requirements,test': 'These questions are usually asked <em>before</em> product definition or after construction.',
                              'requirements,design,test': 'These questions are asked during all phases of a product development.'
-                         }[phase]).appendTo('#answers');
+                         }[phase]).appendTo($when);
 
-                         $('<div>').addClass('nib').css('borderRightColor', item.bubbleBackgroundColor).appendTo('#answers');
+
+                         $('<h6>').text('If your questions are like...').appendTo($what);
+                         $('<h3>').html('&ldquo;' + item.label + '&rdquo;').appendTo($what);
+                         $('<h6>').text('consider...').appendTo($how);
+                         var $names = $('<ul>');
+                         for (var i = 0; i < data.length; i++) {
+                             var $li = $('<li>').appendTo($names);
+                             var link = data[i].ref || 'http://www.google.com/search?q=' + data[i].name;
+                             $('<a></a>').attr('href', link).attr('target', '_blank').text(data[i].name).appendTo($li);
+                         }
+                         $names.appendTo($how);
+
+
+                         $('<div>').addClass('nib').css('backgroundColor', item.bubbleBackgroundColor).appendTo('#answers');
+                         $('<div>').addClass('mask').appendTo('#answers');
 
 
                      }).bind('passBy',
                             function(e, item) {
-                                $('#answers').fadeOut('fast');
+                                //$('#answers').animate({opacity: .9},'fast');
                             }).bind('clickOn',
                                    function(e, item) {
                                        $(this).trigger('spinTo', item.label);
