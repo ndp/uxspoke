@@ -1,27 +1,5 @@
 // Copyright (c) 2010 Andrew J. Peterson / NDP Software. All Rights Reserved.
-function generateUXQuestions() {
-
-    // Extract questions hash of question => [activity[0], activity[1]...]
-    function extractQuestions(uxActivities) {
-        var questions = {};
-        for (var i = 0; i < uxActivities.length; i++) {
-            var activity = uxActivities[i];
-            if (activity.egs) {
-                for (var e = 0; e < activity.egs.length; e++) {
-                    var q = activity.egs[e];
-                    if (q.length > 0) {
-                        if (!questions[q]) {
-                            questions[q] = [];
-                        }
-                        questions[q].push(activity);
-                    }
-                }
-            }
-        }
-        return questions;
-    }
-
-
+function generateUxActivities() {
     function expandCommonQuestions(uxActivities) {
 
         // Common questions get a "key", and are filled in...
@@ -294,8 +272,8 @@ function generateUXQuestions() {
                         'right_info',
                         'satisfied',
                         'understand_product_frustrations',
-                            'understand_product_weaknesses',
-                            'right_ui'
+                        'understand_product_weaknesses',
+                        'right_ui'
                     ],
                     ref: '',
                     effort: 1
@@ -327,6 +305,35 @@ function generateUXQuestions() {
     ];
 
     expandCommonQuestions(uxActivities);
+
+    return uxActivities;
+}
+
+
+function generateUXQuestions() {
+
+    // Extract questions hash of question => [activity[0], activity[1]...]
+    function extractQuestions(uxActivities) {
+        var questions = {};
+        for (var i = 0; i < uxActivities.length; i++) {
+            var activity = uxActivities[i];
+            if (activity.egs) {
+                for (var e = 0; e < activity.egs.length; e++) {
+                    var q = activity.egs[e];
+                    if (q.length > 0) {
+                        if (!questions[q]) {
+                            questions[q] = [];
+                        }
+                        questions[q].push(activity);
+                    }
+                }
+            }
+        }
+        return questions;
+    }
+
+
+    var uxActivities = generateUxActivities();
 
     var uxQuestions = extractQuestions(uxActivities)
 
