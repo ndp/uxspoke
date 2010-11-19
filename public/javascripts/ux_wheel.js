@@ -316,8 +316,8 @@ $(function() {
         $(this).find('h4 span').text('click to ' + ($(this).hasClass('opened') ? 'hide' : 'show'));
     });
 
-    setTimeout(function() {$('#about').trigger('close');}, 1000);
-    setTimeout(function() {$('#about').css('visibility','visible');}, 2000);
+    setTimeout(function() {$('#about').trigger('close');}, 4000);
+    setTimeout(function() {$('#about').css('visibility','visible');}, 4500);
 
 
     var uxQuestions = generateUXQuestions();
