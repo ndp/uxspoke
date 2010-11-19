@@ -19,64 +19,75 @@ $(function() {
             height: wheelRadius * 2 //'800' height='800'
 
         },
+        '#phase': {
+            position: 'absolute',
+            top: wheelTop + 10,
+            left: wheelLeft + 2 * wheelRadius + 10 - 200
+        },
         '#answers': {
-//            display: 'none',
             padding: 20,
-            backgroundColor: 'transparent',//bg.darken(30),
-            color: 'black',
+            backgroundColor: phaseToColor('requirements').saturate(20).darken(30),
+            color: '#52730A'.lighten(20).saturate(-50),//'#f2e4ae'.darken(50),
             position: 'absolute',
             top: wheelTop + 15,
             left: wheelLeft + 2 * wheelRadius + 10,
             width: 350,
             height: 715,
-            font: '18px/30px georgia',
+            border: '1px 1px 1px 0 solid #666',
+            has: [boxShadow([0,0], 10, bg.darken(30)),roundedCorners(10)],
             '.box': {
-                border: '1px 1px 1px 0 solid #666',
                 position: 'absolute',
                 padding: '20px 10px 10px 10px',
                 width: 350 - 20,
-                backgroundColor: '#f2e4ae',
-                color: '#f2e4ae'.darken(50),
-                has: [boxShadow([0,0], 10, bg.darken(30))],
+                '*': {
+                    padding: 0,
+                    margin: 0
+                },
                 h6: {
                     padding: 0,
                     margin: 0,
-                    font: '15px/15px georgia',
+                    font: '20px/15px League Gothic',
                     paddingBottom: 10,
                     fontStyle: 'italic'
                 }
             },
             '.what': {
-                has: roundedCorners('top', 10),
-                top: 225,
-                height: 130,
-                fontStyle: 'italic',
-                '*': {
-                    padding: 0,
-                    margin: 0
-                },
+                top: 0,
+                height: 230 + 125,
                 h3: {
-                    letterSpacing: 0,
-                    fontSize:22,
-                    lineHeight: 30,
+                    font: '60px/55px League Gothic',
                     paddingLeft: 15,
-                    textIndent: -15
+                    textIndent: -15,
+                    color: phaseToColor('requirements').lighten(20)
                 }
             },
             '.when': {
-                height: 160,
-                top: 0,
-                has: roundedCorners(10),
+                height: 60,
+                top: 270,
+                left: 10,
+                zIndex: 10,
+                opacity: .2,
+                '&:hover': {opacity: 1},
+                ol: {
+                    has: clearfix(), 
+                    li: {
+                        width: 108
+                    }
+                },
                 p: {
-                    font: '15px/25px georgia',
+                    font: '16px/18px georgia',
                     margin: 0,
-                    paddingRight: 30
-                }
+                    opacity: .7,
+                    color: 'white',
+                    padding: '0 5px',
+                    visibility: 'hidden'
+                },
+                '&:hover': { opacity: 1.0},
+                '&:hover p': { visibility: 'visible'}
             },
             '.how': {
                 top: 440 - 25 - 30,
                 height: 300 + 30,
-                has: roundedCorners('bottom', 10),
                 ul: {
                     display: 'block',
                     padding: 0, margin: 0,
@@ -84,9 +95,9 @@ $(function() {
                     li: {
                         display: 'block',
                         'float': 'left',
-                        font: '15px/19px georgia',
-                        border: '1px solid white',
-                        padding: '2px 3px',
+                        font: '20px/22px League Gothic',
+                        border: '1px solid transparent',
+                        padding: '2px 5px',
                         marginBottom: -1,
                         marginRight: -1,
                         a: {
@@ -94,10 +105,15 @@ $(function() {
                             textDecoration: 'none',
                             '&:hover': {textDecoration: 'underline'}
                         },
-                        '&.good': { color: 'white' },
-                        '&.bad': { opacity: .2 },
-                        '&:hover.bad': { opacity: .3}
+                        '&.good': { color: 'white', borderColor: 'transparent #52730A #52730A transparent' },
+                        '&.bad': { opacity: .05 }
                     }
+                },
+                p: {
+                    font: '16px/18px georgia',
+                    opacity: .7,
+                    color: 'white',
+                    padding: '15px 5px 5px'
                 }
             },
             '.nib': {
@@ -110,14 +126,6 @@ $(function() {
                 width: 390,
                 top: 385,
                 left: -20
-            },
-            '.mask': {
-                position: 'absolute',
-                height: 10,
-                backgroundColor: '#f2e4ae',
-                width: 350,
-                top: 375,
-                zIndex: 10
             }
         },
         '#about': {
@@ -128,8 +136,8 @@ $(function() {
             color: 'white',
             h1: {
                 fontSize: 24,
+                font: '35px/50px League Gothic, georgia',
                 span: {
-                    fontStyle: 'italic',
                     fontSize: 15
                 }
             },
@@ -175,6 +183,8 @@ $(function() {
             padding: 0,
             margin: '5px 0',
             li: {
+                textAlign: 'center',
+                font: '20px/25px League Gothic',
                 display: 'block',
                 'float': 'left',
                 padding: '5px 10px',
@@ -182,7 +192,7 @@ $(function() {
                 color: 'white',
                 border: '1px solid white',
                 '&.off': {
-                    opacity: .3
+                    opacity: .2
                 },
                 '&.requirements': { backgroundColor: phaseToColor('requirements')},
                 '&.design': { backgroundColor: phaseToColor('design')},
@@ -299,12 +309,15 @@ $(function() {
         }
     };
 
-    $('#about').pulloutPanel({attachTo:'bl'}).click(
+    $('#about').css('visibility','hidden').pulloutPanel({open:true}).click(
                                                    function() {
                                                        $(this).trigger('toggle');
                                                    }).bind('opened closed', function() {
         $(this).find('h4 span').text('click to ' + ($(this).hasClass('opened') ? 'hide' : 'show'));
     });
+
+    setTimeout(function() {$('#about').trigger('close');}, 1000);
+    setTimeout(function() {$('#about').css('visibility','visible');}, 2000);
 
 
     var uxQuestions = generateUXQuestions();
@@ -368,14 +381,8 @@ $(function() {
 
                          // bubbleColor too
                          $('#answers').empty().animate({ opacity: 1.0}, 'fast');
-                         //.css({color: item.bubbleBackgroundColor,borderColor: item.bubbleBackgroundColor});
 
-                         $('#answer .nib').css({backgroundColor: item.bubbleBackgroundColor});
-
-                         var $when = $('<div>').addClass('when').appendTo('#answers').animate({
-//                             backgroundColor:item.bubbleBackgroundColor,
-//                             color:item.bubbleBackgroundColor.darken(30)
-                         }, 'fast');
+                         var $when = $('<div>').addClass('when').appendTo('#answers');
                          var $what = $('<div>').addClass('what').appendTo('#answers'); //.css({backgroundColor: item.bubbleBackgroundColor})
                          var $how = $('<div>').addClass('how').appendTo('#answers');
                          $('#answers').find('div').addClass('box');
@@ -398,13 +405,21 @@ $(function() {
                          }[phase]).appendTo($when);
 
 
+                         // question and activities
+                         var $what = $('<div>').addClass('what').appendTo('#answers');
+                         //.css({backgroundColor: item.bubbleBackgroundColor})
+                         var $how = $('<div>').addClass('how').appendTo('#answers');
+                         $('#answers').find('div').addClass('box');
+
+
                          $('<h6>').text('If your questions are like...').appendTo($what);
                          $('<h3>').html('&ldquo;' + item.label + '&rdquo;').appendTo($what);
-                         $('<h6>').text('consider...').appendTo($how);
-                         var $names = $('<ul>');
 
+                         
+                         var $activities = $('<ul>');
+                         $('<li>').text('consider...').appendTo($activities);
                          for (var ai in uxActivities) {
-                             var $li = $('<li>').appendTo($names);
+                             var $li = $('<li>').appendTo($activities);
                              var a = uxActivities[ai];
                              var yes = false;
                              for (var i = 0; i < data.length; i++) {
@@ -414,6 +429,7 @@ $(function() {
                              $('<a></a>').
                                      attr('href', link).
                                      attr('target', '_blank').
+                                     attr('title', a.description || '').
                                      text(a.name).appendTo($li);
                              $li.addClass(yes ? 'good' : 'bad').
                                      css('backgroundColor', phaseToColor(a.phase));
@@ -425,11 +441,19 @@ $(function() {
 //                             var link = data[i].ref || 'http://www.google.com/search?q=' + data[i].name;
 //                             $('<a></a>').attr('href', link).attr('target', '_blank').text(data[i].name).appendTo($li);
 //                         }
-                         $names.appendTo($how);
+                         $activities.appendTo($how);
+                         $('<p></p>').appendTo($how);
+                         $activities.find('li').mouseenter(function() {
+                             if ($(this).hasClass('good')) {
+                                 $how.
+                                         find('p').
+                                         text($(this).find('a').attr('title') + ' Click to learn more.').
+                                         click(function() { document.href = $(this).find('a').attr('href'); });
+                             }
+                         });
 
 
                          $('<div>').addClass('nib').css('backgroundColor', item.bubbleBackgroundColor).appendTo('#answers');
-                         $('<div>').addClass('mask').appendTo('#answers');
 
 
                      }).bind('passBy',
@@ -443,7 +467,7 @@ $(function() {
                                                        insideRadius: 80,
                                                        //    maskColor: 'transparent',
                                                        //    hilightColor: 'white',
-                                                       font: '12px verdana, Arial',
+                                                       font: '14px georgia, verdana, Arial',
                                                        duration: 1000,
                                                        easing: $.easing.easeOutBounce,
                                                        centerColor: phaseToColor('requirements')

@@ -20,7 +20,7 @@ function generateUxActivities() {
             varying_perspectives: 'What varying perspectives affect product usage?',
             understand_varying_goals: 'What varying goals affect product usage?',
             test_approach: 'Will users understand our approach/ideas/approach?',
-            right_ia: 'What should the categories/IA/structure be?',
+            right_ia: 'What should the categories, I.A. or structure be?',
             right_task_ui: 'Can users complete a task within our product?',
             right_ui: 'Do users understand how to use it?',
             right_ui_timed: 'Can users accomplish X in time Y?',
@@ -57,7 +57,8 @@ function generateUxActivities() {
                     effort: 2
                 },
                 {
-                    name: 'prototyping (paper or higher-fidelity)',
+                    name: 'prototyping',
+                    description: 'Paper and higher-fidelity interactive prototypes (PowerPoint, PDFs, HTML, Hypercard, etc.) allow you to start gathering feedback before full features are built.',
                     phase: 'design,test',
                     egs: [
                         'understand_workflow',
@@ -71,7 +72,7 @@ function generateUxActivities() {
                 {
                     name: 'developing personas',
                     phase: 'requirements',
-                    tests: 'definition of user',
+                    description:  'Developing personas (and necessary research, analysis and synthesis) provide insight into users\s mindsets.',
                     egs: [
                         'understand_attitudes',
                         'understand_user_types',
@@ -85,7 +86,7 @@ function generateUxActivities() {
                 {
                     name: 'contextual interviews',
                     phase: 'requirements',
-                    tests: 'problems, domain knowledge, goals, tasks',
+                    description:  'Contextual interviews help discover problems, domain knowledge, goals, tasks.',
                     egs: [
                         'understand_environment',
                         'varying_perspectives',
@@ -100,9 +101,9 @@ function generateUxActivities() {
                     ref: 'http://www.usability.gov/methods/analyze_current/learn/contextual.html',
                     effort: 2
                 },
-                {name: 'subject matter expert interviews',
+                {name: 'SME interviews',
                     phase: 'requirements',
-                    tests: 'complexities of domain, specialized knowledge, best practices',
+                    description:  'Subject matter expert interviews can provide insight into the complexities of domain, specialized knowledge, best practices.',
                     egs: [
                         "terminology",
                         "understand_domain_problem",
@@ -112,7 +113,7 @@ function generateUxActivities() {
                     effort: 2},
                 {name: 'customer interviews',
                     phase: 'requirements',
-                    tests: 'goals, frustrations, buying considerations',
+                    description:  'Customer interviews test goals, frustrations, buying considerations.',
                     egs: [
                         'varying_perspectives',
                         'understand_environment',
@@ -126,7 +127,7 @@ function generateUxActivities() {
                     ref: 'http://www.usability.gov/methods/analyze_current/learn/individual.html'
                 },
                 {name: 'quantitative research',
-                    tests: 'financial questions, market demographics',
+                    description:  'Quantitative research can answer financial questions, market demographics.',
                     phase: 'requirements',
                     egs: [
 //                    'define_cost',
@@ -139,6 +140,7 @@ function generateUxActivities() {
                 },
                 {
                     name: 'click tracking',
+                    description: 'Click tracking provides information about where people are interacting with your pages.',
                     phase: 'test',
                     egs: [
                         'What links and pages aren\'t used or seen?',
@@ -149,6 +151,7 @@ function generateUxActivities() {
                 },
                 {
                     name: 'web analytics',
+                    description: 'With enough traffic, web analytics can provide real, factual data, but can require effort to decipher.',
                     phase: 'test',
                     egs: [
                         'What links and pages aren\'t used?',
@@ -159,7 +162,7 @@ function generateUxActivities() {
                     ref: 'http://www.google.com/analytics/'
                 },
                 {name: 'focus groups',
-                    tests: 'sense of brand or new domain',
+                    description:  'Focus groups are great for understanding the sense of brand or new domain.',
                     phase: 'requirements,design',
                     egs: [
                         'varying_perspectives',
@@ -196,14 +199,18 @@ function generateUxActivities() {
                     ref: 'http://www.usability.gov/methods/analyze_current/analysis.html',
                     effort: 2
                 },
-                {name: 'usability testing',
+                {
+                    name: 'usability testing',
                     phase: 'design,test',
-                    tests: "assessing prototype's first-time ease of use, fine tuning button labels and such, persuading people there IS a problem",
+                    description:  "Usability testing is excellent for a variety of learnings: assessing prototype's first-time ease of use, fine tuning button labels and such, persuading people there IS a problem.",
                     egs: [
                         'right_usability',
                         'right_ui',
                         'right_task_ui',
                         'right_ui_timed',
+                        'understand_attitudes',
+                        'understand_environment',
+                        'understand_workflow',
                         'How easy is it to learn?',
                         'Is the usability that bad?',
                         "terminology",
@@ -214,7 +221,8 @@ function generateUxActivities() {
                     effort: 2
                 },
                 {
-                    name: 'remote un-moderated user testing',
+                    name: 'remote user testing',
+                    description: 'Remote un-moderated user testing offers a quick turn-around tool. Good for task-oriented tasks for a wide audience.',
                     phase: 'design,test',
                     egs: [
                         'right_usability',
@@ -252,6 +260,7 @@ function generateUxActivities() {
                 },
                 {
                     name: 'online surveys',
+                    description:'Online surveys are relatively easy to set up and provide small, bite-sized answers.',
                     phase: 'test',
                     egs: [
                         'What are the demographics of the actual users?',
@@ -265,7 +274,8 @@ function generateUxActivities() {
                     effort: 2
                 },
                 {
-                    name: 'support team interviews (and conversations)',
+                    name: 'support team',
+                    description: 'Formal and informal conversations with your support team can provide insight into the current user\'s experiences.',
                     phase: 'test',
                     egs: [
                         'understand_product_suggestions',
@@ -279,7 +289,8 @@ function generateUxActivities() {
                     effort: 1
                 },
                 {
-                    name: 'support forums (yours and competitors)',
+                    name: 'support forums',
+                    description:'Online support forums-- both yours and your competitors-- can provide insight into your current users\'s experiences.',
                     phase: 'requirements,design,test',
                     egs: [
                         'understand_product_suggestions',
@@ -291,13 +302,13 @@ function generateUxActivities() {
                     effort: 1
                 }
 //            {name: 'user diaries',
-//              tests: 'behavior over time',
+//              description:  'behavior over time',
 //              egs: [
 ////                'How do people behave over time?'
 //              ],
 //              effort: 3},
 //            {name: 'ethnographic interviews',
-//              tests: 'extract values and goals that motivate actions',
+//              description:  'extract values and goals that motivate actions',
 //              egs: [
 //              ],
 //              effort: 3
