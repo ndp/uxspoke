@@ -19,7 +19,7 @@ function generateUxActivities() {
             understand_time_frame: "What is the users' time frame?",
             varying_perspectives: 'What varying perspectives affect product usage?',
             understand_varying_goals: 'What varying goals affect product usage?',
-            test_approach: 'Will users understand our approach/ideas/approach?',
+            test_approach: 'Will users understand our approach and concept?',
             right_ia: 'What should the categories, I.A. or structure be?',
             right_task_ui: 'Can users complete a task within our product?',
             right_ui: 'Do users understand how to use it?',
@@ -52,13 +52,14 @@ function generateUxActivities() {
             [
                 {
                     name: 'eye tracking',
+                    description: 'Eye tracking monitors users eye movements as the look at a web page (or anything, really). It used to be quite expensive, but new comapanies are offering very inexpensive solutions.',
                     phase: 'design,test',
                     egs: ['What links and pages aren\'t used or seen?'],
                     effort: 2
                 },
                 {
                     name: 'prototyping',
-                    description: 'Paper and higher-fidelity interactive prototypes (PowerPoint, PDFs, HTML, Hypercard, etc.) allow you to start gathering feedback before full features are built.',
+                    description: 'Build a simpler version of your product and put it in front of your potential users to get feedback before it\'s built. Use paper or an interactive medium (PowerPoint, PDFs, HTML, Hypercard, etc.)-- whatver\'s fastest.',
                     phase: 'design,test',
                     egs: [
                         'understand_workflow',
@@ -72,7 +73,7 @@ function generateUxActivities() {
                 {
                     name: 'developing personas',
                     phase: 'requirements',
-                    description:  'Developing personas (and necessary research, analysis and synthesis) provide insight into users\s mindsets.',
+                    description:  'Developing personas (and necessary research, analysis and synthesis) provide insight into users\' mindsets.',
                     egs: [
                         'understand_attitudes',
                         'understand_user_types',
@@ -86,7 +87,7 @@ function generateUxActivities() {
                 {
                     name: 'contextual interviews',
                     phase: 'requirements',
-                    description:  'Contextual interviews help discover problems, domain knowledge, goals, tasks.',
+                    description:  'Contextual interviews help discover problems, domain knowledge, goals, tasks by talking to users "in the wild."',
                     egs: [
                         'understand_environment',
                         'varying_perspectives',
@@ -112,13 +113,13 @@ function generateUxActivities() {
                     ],
                     effort: 2},
                 {name: 'customer interviews',
-                    phase: 'requirements',
+                    phase: 'requirements,design,test',
                     description:  'Customer interviews test goals, frustrations, buying considerations.',
                     egs: [
                         'varying_perspectives',
                         'understand_environment',
                         'understand_varying_goals',
-//                    "define_cost",
+                    "define_cost",
                         "understand_domain_problem",
                         "understand_time_frame",
                         "understand_workflow"
@@ -127,20 +128,20 @@ function generateUxActivities() {
                     ref: 'http://www.usability.gov/methods/analyze_current/learn/individual.html'
                 },
                 {name: 'quantitative research',
-                    description:  'Quantitative research can answer financial questions, market demographics.',
+                    description:  'Quantitative research can answer financial questions, market demographics, technical requirements.',
                     phase: 'requirements',
                     egs: [
-//                    'define_cost',
+                    'define_cost',
                         'terminology',
                         'right_ia',
-                        'understand_varying_goals'
-//                    'Are there really potential users?'
+                        'understand_varying_goals',
+                    'Are there really potential users?'
                     ],
                     effort: 2
                 },
                 {
                     name: 'click tracking',
-                    description: 'Click tracking provides information about where people are interacting with your pages.',
+                    description: 'Click records where people click on your web pages. It provides insights into how people actually use your product.',
                     phase: 'test',
                     egs: [
                         'What links and pages aren\'t used or seen?',
@@ -151,7 +152,7 @@ function generateUxActivities() {
                 },
                 {
                     name: 'web analytics',
-                    description: 'With enough traffic, web analytics can provide real, factual data, but can require effort to decipher.',
+                    description: 'Web analytics-- with enough traffic-- can provide real, factual data, but can require effort to decipher.',
                     phase: 'test',
                     egs: [
                         'What links and pages aren\'t used?',
@@ -178,6 +179,7 @@ function generateUxActivities() {
                 },
                 {
                     name: 'card sorting',
+                    description: 'Card sorting is an activity where the user\'s interactively break down their problem and domain, allowing product designers to understand their mindset.',
                     phase: 'requirements,design',
                     egs:[
                         'right_ia',
@@ -189,6 +191,7 @@ function generateUxActivities() {
                 },
                 {
                     name: 'task analysis',
+                    description: 'Task analysis dives into how users actually get the job done.',
                     phase: 'requirements',
                     egs: [
                         'understand_goals',
@@ -222,7 +225,7 @@ function generateUxActivities() {
                 },
                 {
                     name: 'remote user testing',
-                    description: 'Remote un-moderated user testing offers a quick turn-around tool. Good for task-oriented tasks for a wide audience.',
+                    description: 'Remote un-moderated user testing offers a quick turn-around to questions of smaller scope. Good for task-oriented tasks not requiring in-depth domain knowledge.',
                     phase: 'design,test',
                     egs: [
                         'right_usability',
@@ -237,6 +240,7 @@ function generateUxActivities() {
                 },
                 {
                     name: 'heuristic evaluations',
+                    description: 'User experience professionals evaluate your product in terms of "best practices" and provide feedback.',
                     phase: 'design,test',
                     eg: [
                         'right_usability',
@@ -260,7 +264,7 @@ function generateUxActivities() {
                 },
                 {
                     name: 'online surveys',
-                    description:'Online surveys are relatively easy to set up and provide small, bite-sized answers.',
+                    description:'Online surveys are relatively easy to set up and provide small, bite-sized answers within (or without) the context of your design.',
                     phase: 'test',
                     egs: [
                         'What are the demographics of the actual users?',
@@ -275,7 +279,7 @@ function generateUxActivities() {
                 },
                 {
                     name: 'support team',
-                    description: 'Formal and informal conversations with your support team can provide insight into the current user\'s experiences.',
+                    description: 'Formal and informal conversations with your support team can provide insight into the current users\' experiences.',
                     phase: 'test',
                     egs: [
                         'understand_product_suggestions',
@@ -290,7 +294,7 @@ function generateUxActivities() {
                 },
                 {
                     name: 'support forums',
-                    description:'Online support forums-- both yours and your competitors-- can provide insight into your current users\'s experiences.',
+                    description:'Online support forums-- both yours and your competitors-- can provide insight into your current users\' experiences.',
                     phase: 'requirements,design,test',
                     egs: [
                         'understand_product_suggestions',

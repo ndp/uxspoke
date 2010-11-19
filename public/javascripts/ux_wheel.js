@@ -93,13 +93,13 @@ $(function() {
                     padding: 0, margin: 0,
                     has: clearfix(),
                     li: {
-                        display: 'block',
-                        'float': 'left',
-                        font: '20px/22px League Gothic',
-                        border: '1px solid transparent',
+//                        display: 'block',
+                        font: '30px/30px League Gothic',
+//                        border: '1px solid transparent',
                         padding: '2px 5px',
-                        marginBottom: -1,
-                        marginRight: -1,
+//                        marginBottom: -1,
+//                        marginRight: -1,
+                        'list-style-position':'inside',
                         a: {
                             color: '#ffffff',//'#f2e4ae'.darken(50),
                             textDecoration: 'none',
@@ -416,23 +416,26 @@ $(function() {
                          $('<h3>').html('&ldquo;' + item.label + '&rdquo;').appendTo($what);
 
                          
+                         $('<h6>').text('consider...').appendTo($how);
                          var $activities = $('<ul>');
-                         $('<li>').text('consider...').appendTo($activities);
                          for (var ai in uxActivities) {
-                             var $li = $('<li>').appendTo($activities);
+                             var $li = $('<li>');
                              var a = uxActivities[ai];
                              var yes = false;
                              for (var i = 0; i < data.length; i++) {
                                  if (data[i].name == a.name) yes = true;
                              }
-                             var link = a.ref || 'http://www.google.com/search?q=' + a.name;
-                             $('<a></a>').
-                                     attr('href', link).
-                                     attr('target', '_blank').
-                                     attr('title', a.description || '').
-                                     text(a.name).appendTo($li);
-                             $li.addClass(yes ? 'good' : 'bad').
-                                     css('backgroundColor', phaseToColor(a.phase));
+                             if (yes) {
+                                 var link = a.ref || 'http://www.google.com/search?q=' + a.name;
+                                 $('<a></a>').
+                                         attr('href', link).
+                                         attr('target', '_blank').
+                                         attr('title', a.description || '').
+                                         text(a.name).appendTo($li);
+                                 $li.addClass(yes ? 'good' : 'bad').
+                                         css('backgroundColor', phaseToColor(a.phase));
+                                 $li.appendTo($activities);
+                             }
                          }
 
 
