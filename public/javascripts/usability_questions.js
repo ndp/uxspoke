@@ -2,25 +2,12 @@
 function generateUxActivities() {
 
     /*
-     learning more about your users
-     hat are your users like? are they social? tech savvy? onilne shoppers?
+     From Laura Klein's preso:
+     what are your users like? are they social? tech savvy? online shoppers?
      how are they currently solving whatever problem your product solves?
      what do they love/hate about the current solution?
 
-
-
-     Learning more about your product:
-     what parts are confusing or frustrating?
-     Which parts make people happy?
-     what parts are missing?
      what are the major problems that are driving people away?
-
-     Would you buy the product?
-     How much would they pay?
-     Predicting future bheavior.
-     Which features should we build next?
-     Exactly how should the feature work?
-
      */
     function expandCommonQuestions(uxActivities) {
 
