@@ -69,7 +69,7 @@ $(function() {
                 opacity: .2,
                 '&:hover': {opacity: 1},
                 ol: {
-                    has: clearfix(), 
+                    has: clearfix(),
                     li: {
                         width: 108
                     }
@@ -309,15 +309,19 @@ $(function() {
         }
     };
 
-    $('#about').css('visibility','hidden').pulloutPanel({open:true}).click(
-                                                   function() {
-                                                       $(this).trigger('toggle');
-                                                   }).bind('opened closed', function() {
+    $('#about').css('visibility', 'hidden').pulloutPanel({open:true}).click(
+                                                                           function() {
+                                                                               $(this).trigger('toggle');
+                                                                           }).bind('opened closed', function() {
         $(this).find('h4 span').text('click to ' + ($(this).hasClass('opened') ? 'hide' : 'show'));
     });
 
-    setTimeout(function() {$('#about').trigger('close');}, 4000);
-    setTimeout(function() {$('#about').css('visibility','visible');}, 4500);
+    setTimeout(function() {
+        $('#about').trigger('close');
+    }, 4000);
+    setTimeout(function() {
+        $('#about').css('visibility', 'visible');
+    }, 4500);
 
 
     var uxQuestions = generateUXQuestions();
@@ -415,7 +419,7 @@ $(function() {
                          $('<h6>').text('If your questions are like...').appendTo($what);
                          $('<h3>').html('&ldquo;' + item.label + '&rdquo;').appendTo($what);
 
-                         
+
                          $('<h6>').text('consider...').appendTo($how);
                          var $activities = $('<ul>');
                          for (var ai in uxActivities) {
@@ -430,7 +434,7 @@ $(function() {
                                  $('<a></a>').
                                          attr('href', link).
                                          attr('target', '_blank').
-                                         attr('title', a.description || '').
+                                         attr('data-description', a.description || '').
                                          text(a.name).appendTo($li);
                                  $li.addClass(yes ? 'good' : 'bad').
                                          css('backgroundColor', phaseToColor(a.phase));
@@ -448,10 +452,15 @@ $(function() {
                          $('<p></p>').appendTo($how);
                          $activities.find('li').mouseenter(function() {
                              if ($(this).hasClass('good')) {
+                                 var desc = $(this).find('a').attr('data-description');
+                                 var href = $(this).find('a').attr('href');
+                                 if (!href.match(/google\.com/)) desc += ' Click to learn more.';
                                  $how.
                                          find('p').
-                                         text($(this).find('a').attr('title') + ' Click to learn more.').
-                                         click(function() { document.href = $(this).find('a').attr('href'); });
+                                         text(desc).
+                                         click(function() {
+                                     document.href = href;
+                                 });
                              }
                          });
 
