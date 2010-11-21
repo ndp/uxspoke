@@ -207,59 +207,6 @@ $(function() {
     });
 
 
-//    (function() {
-//        images = [
-//            '1015635.png',
-//            '1289155357_grunge-texture-8-500.jpg',
-//            '28251.png',
-//            '381163.png',
-//            '398810.png',
-//            '48084.png',
-//            '62962.png',
-//            '716530.png',
-//            '725333.png',
-//            '79814.png',
-//            'circles',
-//            'circles/171311.png',
-//            'circles/23380.png',
-//            'circles/26191.png',
-//            'circles/434378.png',
-//            'circles/48597.png',
-//            'circles/512718.png',
-//            'circles/518796.png',
-//            'circles/579955.png',
-//            'circles/599610.png',
-//            'circles/623245.png',
-//            'circles/75572.png',
-//            'circles/81744.png',
-//            'circles/941424.png',
-//            'circles/98538.png',
-//            'circles/ULP223.gif',
-//            'COLOURlovers.com-*sunny_texture**.png',
-//            'Damasco',
-//            'Inigo\'s Wallpaper.jpg',
-//            'KF60572.JPG',
-//            'photoshop-textures-diamond-background-circus.jpg',
-//            'spaceball.gif',
-//            'stripes',
-//            'stripes/13767.png',
-//            'stripes/17501.png',
-//            'stripes/43697.png',
-//            'stripes/540764.png',
-//            'stripes/66937.png',
-//            'stripes/716445.png',
-//            'stripes/716446.png',
-//            'stripes/716449.png',
-//            'stripes/97719.png'
-//        ];
-//        c = 0;
-//        setInterval(function() {
-////            $('body').css('backgroundImage', 'url(/images/' + images[c] + ')');
-//            c = (c + 1) % images.length;
-//        }, 2000);
-//    })();
-
-
     $.fn.pulloutPanel = function(options) {
 
         var settings = $.extend({}, $.fn.pulloutPanel.defaults, options);
@@ -320,6 +267,7 @@ $(function() {
         $(this).find('h4 span').text('click to ' + ($(this).hasClass('opened') ? 'hide' : 'find out'));
     });
 
+    // Display them on the page at just the right time.
     setTimeout(function() {
         $('#about').trigger('close');
     }, 4000);
@@ -359,7 +307,6 @@ $(function() {
             backgroundColor: color,
             color: color.saturate(-30).lighten(70),
             bubbleBackgroundColor: color,
-            bubbleColor: color.lighten(80),
             data: acts
         };
         items.push(item);
@@ -387,15 +334,13 @@ $(function() {
                      function(e, item) {
                          var data = item.data;
 
-                         // bubbleColor too
                          $('#answers').empty().show('fast');
 
                          var $when = $('<div>').addClass('when').appendTo('#answers');
-                         var $what = $('<div>').addClass('what').appendTo('#answers'); //.css({backgroundColor: item.bubbleBackgroundColor})
+                         var $what = $('<div>').addClass('what').appendTo('#answers');
                          var $how = $('<div>').addClass('how').appendTo('#answers');
                          $('#answers').find('div').addClass('box');
 
-//                         $('<h6>').text('These questions come up...').appendTo($when);
                          var phase = data[0].phase;
                          $phases = $('<ol>');
                          $('<li>').text('before').addClass('requirements').addClass(phase.indexOf('requirements') >= 0 ? 'on' : 'off').appendTo($phases);
@@ -415,7 +360,6 @@ $(function() {
 
                          // question and activities
                          var $what = $('<div>').addClass('what').appendTo('#answers');
-                         //.css({backgroundColor: item.bubbleBackgroundColor})
                          var $how = $('<div>').addClass('how').appendTo('#answers');
                          $('#answers').find('div').addClass('box');
 
@@ -447,11 +391,6 @@ $(function() {
                          }
 
 
-//                         for (var i = 0; i < data.length; i++) {
-//                             var $li = $('<li>').appendTo($names);
-//                             var link = data[i].ref || 'http://www.google.com/search?q=' + data[i].name;
-//                             $('<a></a>').attr('href', link).attr('target', '_blank').text(data[i].name).appendTo($li);
-//                         }
                          $activities.appendTo($how);
                          $('<p></p>').appendTo($how);
                          $activities.find('li').mouseenter(function() {
@@ -481,8 +420,6 @@ $(function() {
                                    }).wheel(items, {
                                                        textOffset: [10,5],
                                                        insideRadius: 80,
-                                                       //    maskColor: 'transparent',
-                                                       //    hilightColor: 'white',
                                                        font: '14px georgia, verdana, Arial',
                                                        duration: 1000,
                                                        easing: $.easing.easeOutBounce,

@@ -32,8 +32,27 @@ I use Csster (http://github.com/ndp/csster) and jQuery (http://jQuery.com).
 I don't use jQueryUI (except for a single easing function, which-- to be honest--
 would be good to factor away).
 
-This project fits into my investigation into "micro-apps": What can I build
-in just a few hours that is useful in its own right?
+I also used this as a playground to learn about:
+- more canvas functionality and animations
+- trig
+- easing in jQuery (and in animations in general)
+- HTML5 fonts
+- color calculations and developing a "color factory" Javascript helper.
+- different Ux tools (duh)
+
+
+== Research
+
+Micro-apps: This project fits into my investigation into "micro-apps"
+What can I build in just a few hours that is useful in its own right?
+
+Randomness in UIs: where can randomness be incorporated into UIs and add
+value? In UX/Spoke, questions are distributed randomly on the wheel on each
+page load, and it is spun to reveal a different question. Many earlier
+iterations involved randomizing colors as well, but this proved too much--
+at least for me with my rusty visual design chops.
+
+Visual Design: work on being a better visual designer.
 
 Comments, thoughts always welcome,
 Andy

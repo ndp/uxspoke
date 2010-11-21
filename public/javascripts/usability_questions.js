@@ -12,7 +12,7 @@ function generateUxActivities() {
     function expandCommonQuestions(uxActivities) {
 
         // Common questions get a "key", and are filled in...
-        // This is just to make the data structure lighter, and is optional.
+        // This is just to make the activities data structure lighter, and is optional.
         var common_questions = {
             // Domain & Problem
             terminology: 'Is our terminology correct?',
@@ -404,7 +404,7 @@ function generateUXQuestions() {
 
     var uxActivities = generateUxActivities();
 
-    var uxQuestions = extractQuestions(uxActivities)
+    var uxQuestions = extractQuestions(uxActivities);
 
     return uxQuestions;
 }
