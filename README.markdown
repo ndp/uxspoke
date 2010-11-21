@@ -11,6 +11,7 @@ consider other tools that you may not be using.
 
 This product was provoked by working with people and teams that found
 one tool and hammered it to death--
+
 * "How do we add metrics to this?",
 * "What do our metrics tell us to do next?"
 * "Let's do usability testing every week."
@@ -35,6 +36,7 @@ I don't use jQueryUI (except for a single easing function, which-- to be honest-
 would be good to factor away).
 
 I also used this as a playground to learn about:
+
 * more canvas functionality and animations
 * trig
 * easing in jQuery (and in animations in general)
