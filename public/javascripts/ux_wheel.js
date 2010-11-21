@@ -1,4 +1,7 @@
 // Copyright (c) 2010 Andrew J. Peterson / NDP Software. All Rights Reserved.
+
+(new Image).src = '/images/circles/75572.png';
+
 $(function() {
 
     var bg = phaseToColor('requirements').lighten(10).saturate(-30);
@@ -25,6 +28,7 @@ $(function() {
             left: wheelLeft + 2 * wheelRadius + 10 - 200
         },
         '#answers': {
+            display: 'none',
             padding: 20,
             backgroundColor: phaseToColor('requirements').saturate(20).darken(30),
             color: '#52730A'.lighten(20).saturate(-50),//'#f2e4ae'.darken(50),
@@ -62,24 +66,27 @@ $(function() {
                 }
             },
             '.when': {
-                height: 60,
-                top: 270,
+                height: 75,
+                top: 265,
                 left: 10,
                 zIndex: 10,
-                opacity: .2,
+                opacity: .8,
+                cursor: 'pointer',
                 '&:hover': {opacity: 1},
                 ol: {
                     has: clearfix(),
+                    position: 'absolute',
+                    bottom: 0,
                     li: {
                         width: 108
                     }
                 },
                 p: {
-                    font: '16px/18px georgia',
+                    font: '15px/17px georgia',
                     margin: 0,
                     opacity: .7,
                     color: 'white',
-                    padding: '0 5px',
+                    padding: '0 0 0 5px',
                     visibility: 'hidden'
                 },
                 '&:hover': { opacity: 1.0},
@@ -110,7 +117,7 @@ $(function() {
                     }
                 },
                 p: {
-                    font: '16px/18px georgia',
+                    font: '15px/17px georgia',
                     opacity: .7,
                     color: 'white',
                     padding: '15px 5px 5px'
@@ -135,39 +142,36 @@ $(function() {
             backgroundColor: '#ecb678'.saturate(0).darken(30),
             color: 'white',
             h1: {
-                fontSize: 24,
-                font: '35px/50px League Gothic, georgia',
+                font: '35px/35px League Gothic, georgia',
+                padding: '10px 0 0 0',
+                margin: 0
+            },
+            h4: {
+                font: '25px/25px League Gothic, georgia',
+                padding: '5px 0',
+                margin: 0,
+                fontStyle: 'plain',
                 span: {
-                    fontSize: 15
+                    paddingTop: 0,
+                    opacity: .8,
+                    'float': 'right',
+                    font: '20px/25px League Gothic, georgia'
                 }
             },
+            '&:hover h4 span': {opacity: 1},
             p: {
                 font: '15px/25px georgia',
                 margin: 0,
                 paddingRight: 30
             },
-            h4: {
-                font: '18px/25px georgia',
-                padding: '5px 0',
+            h5: {
+                font: '25px/25px League Gothic, georgia',
+                padding: '10px 0 0 0',
                 margin: 0,
-                fontStyle: 'italic',
-                span: {
-                    paddingTop: 0,
-                    opacity: .8,
-                    'float': 'right',
-                    font: '15px/25px georgia'
-                }
+                fontStyle: 'plain'
             },
-            '&:hover h4 span': {opacity: 1},
             '.copyright': {
                 font: '12px/25px georgia'
-            },
-            h5: {
-                font: '15px/25px georgia',
-                padding: 0,
-                margin: 0,
-                opacity: .8,
-                fontStyle: 'italic'
             },
             'a:link, a:visited': {
                 color: 'white',
@@ -313,7 +317,7 @@ $(function() {
                                                                            function() {
                                                                                $(this).trigger('toggle');
                                                                            }).bind('opened closed', function() {
-        $(this).find('h4 span').text('click to ' + ($(this).hasClass('opened') ? 'hide' : 'show'));
+        $(this).find('h4 span').text('click to ' + ($(this).hasClass('opened') ? 'hide' : 'find out'));
     });
 
     setTimeout(function() {
@@ -384,7 +388,7 @@ $(function() {
                          var data = item.data;
 
                          // bubbleColor too
-                         $('#answers').empty().animate({ opacity: 1.0}, 'fast');
+                         $('#answers').empty().show('fast');
 
                          var $when = $('<div>').addClass('when').appendTo('#answers');
                          var $what = $('<div>').addClass('what').appendTo('#answers'); //.css({backgroundColor: item.bubbleBackgroundColor})
@@ -401,7 +405,7 @@ $(function() {
                          $('<p></p>').html({
                              'requirements': 'These questions are usually asked <em>before</em> product definition starts.',
                              'requirements,design': 'These questions are usually asked <em>before or during</em> product definition, while early design ideas develop.',
-                             'design': 'unused',
+                             'design': 'These questions are asked during product definition, while exploring and building solutions.',
                              'design,test': 'These questions are usually asked <em>after</em> basic requirements, while defining and iterating on the product.',
                              'test': 'These questions are usually asked <em>while iterating on</em> the product.',
                              'requirements,test': 'These questions are usually asked <em>before</em> product definition or after construction.',
