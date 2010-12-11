@@ -315,16 +315,6 @@ $(function() {
     function shuffle(o) {
         for (var j, x, i = o.length; i; j = parseInt(Math.random() * i),x = o[--i],o[i] = o[j],o[j] = x);
         return o;
-
-
-        var s = [];
-        while (a.length) {
-            var r = a.splice(Math.random() * a.length, 1);
-            s.push(r);
-        }
-        return s;
-        while (s.length) a.push(s.shift());
-        return s;
     }
 
     items = shuffle(items);
