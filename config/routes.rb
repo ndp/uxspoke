@@ -1,5 +1,6 @@
 Uxspoke::Application.routes.draw do
   get "demo/ux_wheel"
+  get "demo/ux_table"
   root :to=>'demo#ux_wheel'
 
   # The priority is based upon order of creation:

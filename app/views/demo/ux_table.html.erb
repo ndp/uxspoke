@@ -1,60 +1,195 @@
+<style type="text/css">
 
-<canvas id="circle" width='800' height='800' >
-'Is our terminology correct?',
-'Do we understand the domain?',
-"What are the user's goals?",
-'What process & steps are used to achieve goals?',
-'What problems should the product solve?',
-'Who actually does tasks? and who helps?',
-'What are the major types of users?',
-'What are the users\' attitudes, beliefs, desires, and experiences?',
-'What product areas need the most attention?',
- What personal, social and cultural characteristics do users bring to the tasks?
-'How are users influenced by their physical environment?',
-"What is the users' time frame?",
-'What varying perspectives affect product usage?',
-'What varying goals affect product usage?',
-'Will users understand our approach/ideas/approach?',
-'What should the categories/IA/structure be?',
-'Can users complete a task within our product?',
-'Do users understand how to use it?',
-'Can users accomplish X in time Y?',
-'What are the usability problems?',  What areas have the worst usability problems?
-'What information are users looking for?',
-'How much should it cost?',
-'What are the users\' opinions of your site and suggestions?',
-'What frustrations have users had with your site?',
-</canvas>
-<div id="answers">
-</div>
-<div id="phase">
-</div>
+</style>
 
-<div id="about">
-  <h4>What's going on here?<span>click to hide</span></h4>
-  <h1>Common Software Usability Questions</h1>
-  <h5>(and how to get answers!)</h5>
-  <p>As you develop or refine a software product,
-    it's easy to get stuck in a rut,
-    running tests that aren't that helpful or
-    focusing on Google Analytics. That tool that
-  worked so well may no longer be the right tool for the questions you have now.</p>
-    <h5>Spin the wheel!</h5>
-  <p>The UX/Spoke tool
-    is designed to help you explore many of the different tools in common practice. </p>
-  <h5>Colors</h5>
-  <p>Questions are divided into phases. The lighter the color, the earlier in the process the question can be answered.
-    We chose a simple model:</p>
-  <ol>
-    <li class="requirements">before</li>
-    <li class="design">design & build</li>
-    <li class="test">refine</li>
-  </ol>
-  <p><em>Before</em> is the phase where you are focused on understanding the users and problems-- before a particular
-    solution is being developed in earnest.
-    <em>Design & build</em> is the phase of creating the product.
-    <em>Refine</em> is the phase where the product is "done", but you're focused on incremental improvements.  Your mileage may vary.</p>
-  <h5>Feedback</h5>
-  <p>If you disagree or have new ideas, drop me a line at <a href="mailto:ndp+uxspoke@mac.com">ndp+uxspoke@mac.com</a></p>
-  <p class="copyright">Copyright &copy; 2010 <a href="http://ndpsoftware.com">Andrew J. Peterson, NDP Software.</a> All Rights Reserved.</p>
-</div>
+<script type="text/javascript">
+
+    // $('table').columnEvents().bind('column.mouseover', f
+    $.fn.columnize = function() {
+        return $(this).each(function() {
+            var $table = $(this);
+            $('td,th', this).bind('mouseenter mouseleave click', function(e) {
+                var columnIndex = $(this).parent().children().index($(this));
+                var $cells = $table.find('tr').find(':nth-child(' + (columnIndex + 1) + ')');
+                return $table.trigger('column' + e.type, [$cells]);
+            });
+        });
+    }
+
+
+    Csster.style({
+        table: {
+            font: '25px/25px League Gothic',
+            width: 1000,
+            'border-collapse':'collapse',
+            colgroup: {
+                backgroundColor: '#ffffff',
+                '&.hover': {
+                    backgroundColor: '#eee'
+                }
+            },
+            thead: {
+                tr: {
+                    th: {
+                        whiteSpace: 'nowrap',
+                        textAlign: 'left',
+                        verticalAlign: 'bottom',
+                        div: {
+                            position:'relative',
+                            width: 30,
+                            height: 150,
+                            div: {
+                                position:'absolute'
+                            }
+                        },
+                        '&:empty': {}
+
+                    }
+                }
+
+            },
+            'colgroup.hover tr th': {
+                opacity: 1
+            },
+            tbody: {
+                height: 500,
+                'overflow': 'clip scroll',
+                tr:{
+                    th: {
+                        textAlign: 'right'
+                    },
+                    td: {
+                        opacity: .5,
+                        textAlign: 'center',
+                        border: '1px solid black',
+                    },
+//                    'td:nth-child(odd)': {
+//                        backgroundColor: '#f7f7f7'
+//                    },
+//                    'td:nth-child(even)': {
+//                        backgroundColor: '#eee'
+//                    },
+                    'td.hover': {
+                        backgroundColor: '#eee'
+                    }
+                }
+            }
+
+        }
+    });
+
+    css = {};
+    var phases = ['requirements',
+        'requirements,design',
+        'design',
+        'design,test',
+        'test',
+        'requirements,test',
+        'requirements,design,test'];
+    for (var ph in phases) {
+        css['.' + phases[ph].replace(',', '.')] = {color: phaseToColor(phases[ph])}
+    }
+    Csster.style(css);
+
+
+    $(function() {
+
+        var uxQuestions = generateUXQuestions();
+        var uxActivities = generateUxActivities();
+        console.log('%o', uxActivities);
+
+        var $table = $('table');
+
+        var $col = $('<colgroup>').addClass('labels').appendTo($table);
+        for (var i = 0; i < uxActivities.length; i++) {
+            if (uxActivities[i].egs) {
+                var $col = $('<colgroup>').appendTo($table).addClass(uxActivities[i].phase.replace(',', ' '));
+            }
+        }
+
+
+        var $thead = $('<thead>').appendTo($table);
+        var $tr = $('<tr>').appendTo($thead);
+        $('<th>').appendTo($tr);
+        for (var i = 0; i < uxActivities.length; i++) {
+            if (uxActivities[i].egs) {
+                var $th = $('<th>').text(uxActivities[i].name).appendTo($tr).addClass(uxActivities[i].phase.replace(',', ' '));
+                $th.wrapInner('<div>');
+                $th.wrapInner('<div>');
+            }
+        }
+
+        var $tbody = $('<tbody>').appendTo($table);
+        for (var q in uxQuestions) {
+            var $tr = $('<tr>').appendTo($tbody);
+            $('<th>').text(q).addClass(uxQuestions[q][0].phase.replace(',', ' ')).appendTo($tr);
+
+            console.log('%o', uxQuestions[q]);
+
+            for (var a = 0; a < uxActivities.length; a++) {
+                var activity = uxActivities[a];
+                if (activity.egs) {
+                    var $td = $('<td>').appendTo($tr);
+                    for (var j = 0; j < activity.egs.length; j++) {
+                        if (q == activity.egs[j]) {
+                            $td.text('X');
+                        }
+                    }
+                }
+            }
+
+        }
+        $('table thead tr th div div').css({rotate: '-60deg', top: 80, left: 65})
+
+
+
+        $('table').columnize().bind('columnmouseenter',function(e, $cells) {
+            if ($cells) $cells.addClass('hover');
+        }).bind('columnmouseleave',function(e, $cells) {
+            if ($cells) $cells.removeClass('hover');
+        });
+
+
+//        $("table").delegate('td', 'mouseover mouseleave', function(e) {
+//            if (e.type == 'mouseover') {
+//                $(this).parent().addClass("hover");
+//                $("colgroup").eq($(this).index()).addClass("hover");
+//            }
+//            else {
+//                $(this).parent().removeClass("hover");
+//                $("colgroup").eq($(this).index()).removeClass("hover");
+//            }
+//        });
+
+    });
+
+
+</script>
+
+<table>
+  <!--<th>Is our terminology correct?</th>-->
+  <!--<th>Do we understand the domain?</th>-->
+  <!--<th>What process & steps are used to achieve goals?</th>-->
+  <!--<th>What problems should the product solve?</th>-->
+  <!--<th>Who actually does tasks? and who helps?</th>-->
+  <!--<th>What are the major types of users?</th>-->
+  <!--<th>What are the users\' attitudes, beliefs, desires, and experiences?</th>-->
+  <!--<th>What product areas need the most attention?</th>-->
+  <!--<th>How are users influenced by their physical environment?</th>-->
+  <!--<th>What varying perspectives affect product usage?</th>-->
+  <!--<th>What varying goals affect product usage?</th>-->
+  <!--<th>Will users understand our approach/ideas/approach?</th>-->
+  <!--<th>What should the categories/IA/structure be?</th>-->
+  <!--<th>Can users complete a task within our product?</th>-->
+  <!--<th>Do users understand how to use it?</th>-->
+  <!--<th>Can users accomplish X in time Y?</th>-->
+  <!--<th>What are the usability problems?</th>-->
+  <!--<th>What information are users looking for?</th>-->
+  <!--<th>How much should it cost?</th>-->
+  <!--<th>What are the users\' opinions of your site and suggestions?</th>-->
+  <!--<th>What frustrations have users had with your site?</th>-->
+
+</table>
+
+
+
