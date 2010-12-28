@@ -279,22 +279,6 @@ $(function() {
     var uxQuestions = generateUXQuestions();
     var uxActivities = generateUxActivities();
 
-    function phaseToColor(phase) {
-//        var c = ColorFactory.interpolate('#DE790A'.lighten(10), '#BD5108', 7);
-//        var c = ColorFactory.interpolate('#c3df88'.darken(20), '#c3df88'.darken(40), 7);
-//        var c = ColorFactory.interpolate('#ecb678'.darken(20), '#ecb678'.darken(60), 7);
-        var c = ColorFactory.interpolate('#c3df88'.darken(20), '#c3df88'.saturate(30).darken(50), 7);
-        return {
-            'requirements': c[0],
-            'requirements,design': c[1],
-            'design': c[2],
-            'design,test': c[3],
-            'test': c[4],
-            'requirements,test': c[5],
-            'requirements,design,test': c[6]
-        }[phase] || '#000000'.saturate(-40).lighten(20);
-    }
-
 
     var items = [];
     for (var q in uxQuestions) {

@@ -1,4 +1,22 @@
 // Copyright (c) 2010 Andrew J. Peterson / NDP Software. All Rights Reserved.
+function phaseToColor(phase) {
+//        var c = ColorFactory.interpolate('#DE790A'.lighten(10), '#BD5108', 7);
+//        var c = ColorFactory.interpolate('#c3df88'.darken(20), '#c3df88'.darken(40), 7);
+//        var c = ColorFactory.interpolate('#ecb678'.darken(20), '#ecb678'.darken(60), 7);
+    var c = ColorFactory.interpolate('#c3df88'.darken(20), '#c3df88'.saturate(30).darken(50), 7);
+    return {
+        'requirements': c[0],
+        'requirements,design': c[1],
+        'design': c[2],
+        'design,test': c[3],
+        'test': c[4],
+        'requirements,test': c[5],
+        'requirements,design,test': c[6]
+    }[phase] || '#000000'.saturate(-40).lighten(20);
+}
+
+
+
 function generateUxActivities() {
 
     /*
@@ -19,16 +37,16 @@ function generateUxActivities() {
             understand_domain: 'Do we understand the domain?',
             understand_domain_problem: 'What problems should the product solve?',
             understand_market: 'What\'s the size of our market?',
-            define_cost: 'Would the buy it? at what price?',
+            define_cost: 'Would they buy it? at what price?',
             understand_demographics: 'What are the demographics of the actual users?',
 
             // User's role in domain and problem
-            understand_goals: "What are the user's goals?",
+            understand_goals: "What are the users' goals?",
             understand_workflow: 'What process & steps are used to achieve goals?',
             understand_roles: 'Who actually does what tasks? and who helps?',
             understand_brand: 'Do users understand the promise of the brand?',
             understand_environment: 'How are users influenced by their physical environment?',
-            understand_time_frame: "What is the users' time frame?",
+            understand_time_frame: "What is the user's time frame?",
             understand_attitudes: 'What are the users\' attitudes, beliefs, desires, and experiences?',
             understand_varying_perspectives: 'What varying perspectives affect product usage?',
             understand_user_types: 'What are the major types of users?',
