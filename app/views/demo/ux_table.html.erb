@@ -1,8 +1,7 @@
-<style type="text/css">
-
-</style>
-
 <script type="text/javascript">
+
+  Csster.addPropertyNames('overflow-x','overflow-y')
+
 
     // $('table').columnEvents().bind('column.mouseover', f
     $.fn.columnize = function() {
@@ -17,23 +16,26 @@
     }
 
 
+    var width = 1000;
+
     Csster.style({
+        '#panel': {
+            backgroundColor: '#fffbee',
+            padding: '20px 50px 20px 10px',
+            width: width - 60
+        },
         table: {
-            font: '25px/25px League Gothic',
-            width: 1000,
+            font: '15px/20px georgia, League Gothic',
+            width: width - 60,
             'border-collapse':'collapse',
-            colgroup: {
-                backgroundColor: '#ffffff',
-                '&.hover': {
-                    backgroundColor: '#eee'
-                }
-            },
+            cursor: 'default',
             thead: {
                 tr: {
                     th: {
                         whiteSpace: 'nowrap',
                         textAlign: 'left',
                         verticalAlign: 'bottom',
+                        opacity: .8,
                         div: {
                             position:'relative',
                             width: 30,
@@ -42,35 +44,48 @@
                                 position:'absolute'
                             }
                         },
-                        '&:empty': {}
+                        '&:empty': {},
+                        '&.hoverColumn': {
+                            opacity: 1
+                        }
 
                     }
                 }
 
             },
-            'colgroup.hover tr th': {
-                opacity: 1
-            },
             tbody: {
-                height: 500,
-                'overflow': 'clip scroll',
                 tr:{
                     th: {
-                        textAlign: 'right'
+                        opacity: .8,
+                        textAlign: 'right',
+                        paddingRight: 5
+                    },
+                    '&:hover th': {
+                            opacity: 1
                     },
                     td: {
-                        opacity: .5,
+                        color: phaseToColor('requirements'),
                         textAlign: 'center',
-                        border: '1px solid black',
+                        border: '1px solid ' + phaseToColor('requirements')
                     },
 //                    'td:nth-child(odd)': {
 //                        backgroundColor: '#f7f7f7'
 //                    },
-//                    'td:nth-child(even)': {
-//                        backgroundColor: '#eee'
-//                    },
-                    'td.hover': {
-                        backgroundColor: '#eee'
+                    'td.hoverColumn': {
+                        color: phaseToColor('test')
+//                            opacity: 1,
+//                        backgroundColor: '#f9f9f9'
+                    },
+                    '&:hover td': {
+                        color: phaseToColor('test'),
+//                        backgroundColor: '#f9f9f9',
+//                        opacity: 1,
+                        '&.hoverColumn': {
+//                            backgroundColor: 'white',
+//                            opacity: 1,
+//                            color: 'black'
+
+                        }
                     }
                 }
             }
@@ -132,7 +147,7 @@
                     var $td = $('<td>').appendTo($tr);
                     for (var j = 0; j < activity.egs.length; j++) {
                         if (q == activity.egs[j]) {
-                            $td.text('X');
+                            $td.html('&bull;');
                         }
                     }
                 }
@@ -142,11 +157,11 @@
         $('table thead tr th div div').css({rotate: '-60deg', top: 80, left: 65})
 
 
-
-        $('table').columnize().bind('columnmouseenter',function(e, $cells) {
-            if ($cells) $cells.addClass('hover');
-        }).bind('columnmouseleave',function(e, $cells) {
-            if ($cells) $cells.removeClass('hover');
+        $('table').columnize().bind('columnmouseenter',
+                                   function(e, $cells) {
+                                       if ($cells) $cells.addClass('hoverColumn');
+                                   }).bind('columnmouseleave', function(e, $cells) {
+            if ($cells) $cells.removeClass('hoverColumn');
         });
 
 
@@ -166,30 +181,29 @@
 
 </script>
 
-<table>
-  <!--<th>Is our terminology correct?</th>-->
-  <!--<th>Do we understand the domain?</th>-->
-  <!--<th>What process & steps are used to achieve goals?</th>-->
-  <!--<th>What problems should the product solve?</th>-->
-  <!--<th>Who actually does tasks? and who helps?</th>-->
-  <!--<th>What are the major types of users?</th>-->
-  <!--<th>What are the users\' attitudes, beliefs, desires, and experiences?</th>-->
-  <!--<th>What product areas need the most attention?</th>-->
-  <!--<th>How are users influenced by their physical environment?</th>-->
-  <!--<th>What varying perspectives affect product usage?</th>-->
-  <!--<th>What varying goals affect product usage?</th>-->
-  <!--<th>Will users understand our approach/ideas/approach?</th>-->
-  <!--<th>What should the categories/IA/structure be?</th>-->
-  <!--<th>Can users complete a task within our product?</th>-->
-  <!--<th>Do users understand how to use it?</th>-->
-  <!--<th>Can users accomplish X in time Y?</th>-->
-  <!--<th>What are the usability problems?</th>-->
-  <!--<th>What information are users looking for?</th>-->
-  <!--<th>How much should it cost?</th>-->
-  <!--<th>What are the users\' opinions of your site and suggestions?</th>-->
-  <!--<th>What frustrations have users had with your site?</th>-->
+<div id="panel">
+  <table>
+    <!--<th>Is our terminology correct?</th>-->
+    <!--<th>Do we understand the domain?</th>-->
+    <!--<th>What process & steps are used to achieve goals?</th>-->
+    <!--<th>What problems should the product solve?</th>-->
+    <!--<th>Who actually does tasks? and who helps?</th>-->
+    <!--<th>What are the major types of users?</th>-->
+    <!--<th>What are the users\' attitudes, beliefs, desires, and experiences?</th>-->
+    <!--<th>What product areas need the most attention?</th>-->
+    <!--<th>How are users influenced by their physical environment?</th>-->
+    <!--<th>What varying perspectives affect product usage?</th>-->
+    <!--<th>What varying goals affect product usage?</th>-->
+    <!--<th>Will users understand our approach/ideas/approach?</th>-->
+    <!--<th>What should the categories/IA/structure be?</th>-->
+    <!--<th>Can users complete a task within our product?</th>-->
+    <!--<th>Do users understand how to use it?</th>-->
+    <!--<th>Can users accomplish X in time Y?</th>-->
+    <!--<th>What are the usability problems?</th>-->
+    <!--<th>What information are users looking for?</th>-->
+    <!--<th>How much should it cost?</th>-->
+    <!--<th>What are the users\' opinions of your site and suggestions?</th>-->
+    <!--<th>What frustrations have users had with your site?</th>-->
 
-</table>
-
-
-
+  </table>
+</div>
