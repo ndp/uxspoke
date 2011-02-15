@@ -1,6 +1,5 @@
 <script type="text/javascript">
 
-  Csster.addPropertyNames('overflow-x','overflow-y')
 
 
     // $('table').columnEvents().bind('column.mouseover', f
@@ -163,18 +162,6 @@
                                    }).bind('columnmouseleave', function(e, $cells) {
             if ($cells) $cells.removeClass('hoverColumn');
         });
-
-
-//        $("table").delegate('td', 'mouseover mouseleave', function(e) {
-//            if (e.type == 'mouseover') {
-//                $(this).parent().addClass("hover");
-//                $("colgroup").eq($(this).index()).addClass("hover");
-//            }
-//            else {
-//                $(this).parent().removeClass("hover");
-//                $("colgroup").eq($(this).index()).removeClass("hover");
-//            }
-//        });
 
     });
 

@@ -4,6 +4,172 @@
 
 $(function() {
 
+
+    (function() {
+        // $('table').columnEvents().bind('column.mouseover', f
+        $.fn.columnize = function() {
+            return $(this).each(function() {
+                var $table = $(this);
+                $('td,th', this).bind('mouseenter mouseleave click', function(e) {
+                    var columnIndex = $(this).parent().children().index($(this));
+                    var $cells = $table.find('tr').find(':nth-child(' + (columnIndex + 1) + ')');
+                    return $table.trigger('column' + e.type, [$cells]);
+                });
+            });
+        };
+
+        var width = 1000;
+        Csster.style({
+            '#panel': {
+                backgroundColor: '#fffbee',
+                padding: '20px 50px 20px 10px',
+                width: width - 60,
+                table: {
+                    font: '15px/20px georgia, League Gothic',
+                    width: width - 60,
+                    'border-collapse':'collapse',
+                    cursor: 'default',
+                    thead: {
+                        tr: {
+                            th: {
+                                whiteSpace: 'nowrap',
+                                textAlign: 'left',
+                                verticalAlign: 'bottom',
+                                opacity: .8,
+                                div: {
+                                    position:'relative',
+                                    width: 30,
+                                    height: 150,
+                                    div: {
+                                        position:'absolute'
+                                    }
+                                },
+                                '&:empty': {},
+                                '&.hoverColumn': {
+                                    opacity: 1
+                                }
+
+                            }
+                        }
+
+                    },
+                    tbody: {
+                        tr:{
+                            th: {
+                                opacity: .8,
+                                textAlign: 'right',
+                                paddingRight: 5
+                            },
+                            '&:hover th': {
+                                opacity: 1
+                            },
+                            td: {
+                                color: phaseToColor('requirements'),
+                                textAlign: 'center',
+                                border: '1px solid ' + phaseToColor('requirements')
+                            },
+//                    'td:nth-child(odd)': {
+//                        backgroundColor: '#f7f7f7'
+//                    },
+                            'td.hoverColumn': {
+                                color: phaseToColor('test')
+//                            opacity: 1,
+//                        backgroundColor: '#f9f9f9'
+                            },
+                            '&:hover td': {
+                                color: phaseToColor('test'),
+//                        backgroundColor: '#f9f9f9',
+//                        opacity: 1,
+                                '&.hoverColumn': {
+//                            backgroundColor: 'white',
+//                            opacity: 1,
+//                            color: 'black'
+
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        });
+
+        css = {};
+        var phases = ['requirements',
+            'requirements,design',
+            'design',
+            'design,test',
+            'test',
+            'requirements,test',
+            'requirements,design,test'];
+        for (var ph in phases) {
+            css['.' + phases[ph].replace(',', '.')] = {color: phaseToColor(phases[ph])}
+        }
+        Csster.style(css);
+
+
+        $(function() {
+
+            var uxQuestions = generateUXQuestions();
+            var uxActivities = generateUxActivities();
+            console.log('%o', uxActivities);
+
+            var $table = $('table');
+
+            var $col = $('<colgroup>').addClass('labels').appendTo($table);
+            for (var i = 0; i < uxActivities.length; i++) {
+                if (uxActivities[i].egs) {
+                    var $col = $('<colgroup>').appendTo($table).addClass(uxActivities[i].phase.replace(',', ' '));
+                }
+            }
+
+
+            var $thead = $('<thead>').appendTo($table);
+            var $tr = $('<tr>').appendTo($thead);
+            $('<th>').appendTo($tr);
+            for (var i = 0; i < uxActivities.length; i++) {
+                if (uxActivities[i].egs) {
+                    var $th = $('<th>').text(uxActivities[i].name).appendTo($tr).addClass(uxActivities[i].phase.replace(',', ' '));
+                    $th.wrapInner('<div>');
+                    $th.wrapInner('<div>');
+                }
+            }
+
+            var $tbody = $('<tbody>').appendTo($table);
+            for (var q in uxQuestions) {
+                var $tr = $('<tr>').appendTo($tbody);
+                $('<th>').text(q).addClass(uxQuestions[q][0].phase.replace(',', ' ')).appendTo($tr);
+
+                console.log('%o', uxQuestions[q]);
+
+                for (var a = 0; a < uxActivities.length; a++) {
+                    var activity = uxActivities[a];
+                    if (activity.egs) {
+                        var $td = $('<td>').appendTo($tr);
+                        for (var j = 0; j < activity.egs.length; j++) {
+                            if (q == activity.egs[j]) {
+                                $td.html('&bull;');
+                            }
+                        }
+                    }
+                }
+
+            }
+            $('table thead tr th div div').css({rotate: '-60deg', top: 80, left: 65})
+
+
+            $('table').columnize().bind('columnmouseenter',
+                                       function(e, $cells) {
+                                           if ($cells) $cells.addClass('hoverColumn');
+                                       }).bind('columnmouseleave', function(e, $cells) {
+                if ($cells) $cells.removeClass('hoverColumn');
+            });
+
+        });
+
+    })();
+
+
     var bg = phaseToColor('requirements').lighten(10).saturate(-30);
     var wheelLeft = 0, wheelTop = 0, wheelRadius = 400;
     Csster.style({
@@ -147,6 +313,7 @@ $(function() {
                 margin: 0
             },
             h4: {
+                color: 'white',
                 font: '25px/25px League Gothic, georgia',
                 padding: '5px 0',
                 margin: 0,
@@ -206,6 +373,28 @@ $(function() {
 
     });
 
+    $.fn.peelOff = function(options) {
+
+        var $this = $(this);
+        $this.hide();
+
+        var bg = '#fffbee';
+        var $control = $('<div>').css({cursor: 'pointer',
+            height: 40, width: 40,
+            position: 'fixed', top:0, left: 0,
+            backgroundColor: bg.darken(10)}).
+                css(boxShadow([0,0], 10, bg.darken(50))).appendTo('body');
+        $('<div>').css({width: 0, height: 0, position: 'relative',
+            top: 0, left: 0, border: '20px solid transparent',
+            borderRightColor: bg.darken(20),
+            borderBottomColor: bg.darken(20)}).appendTo($control);
+        $control.click(function() {
+            $this.css({position: 'fixed', height: '100%', weight: '100%',zIndex: 10000, overflow: 'auto'}).slideDown();
+        });
+        $this.click(function() { $this.slideUp();})
+
+    };
+
 
     $.fn.pulloutPanel = function(options) {
 
@@ -216,20 +405,20 @@ $(function() {
 
             $this.addClass('pullout_panel');
 
-            $this.bind('open', function(event) {
+            $this.bind('open', function() {
                 $this.animate({bottom: 0}, 'slow', 'easeOutBounce', function() {
                     $this.removeClass('closed').addClass('opened');
                     $this.trigger('opened');
                 });
             });
-            $this.bind('close', function(event) {
+            $this.bind('close', function() {
                 var height = $this.innerHeight();
                 $this.animate({bottom: -height + 50}, 'slow', 'easeOutBounce', function() {
                     $this.addClass('closed').removeClass('opened');
                     $this.trigger('closed');
                 });
             });
-            $this.bind('toggle', function(event) {
+            $this.bind('toggle', function() {
                 $this.trigger($this.hasClass('opened') ? 'close' : 'open');
             });
 
@@ -256,7 +445,6 @@ $(function() {
             border: '1px 1px 1px 0 solid #666',
             has: [roundedCorners('tr', 10),boxShadow([0,0], 10, phaseToColor('requirements').saturate(-30).darken(50))],
             cursor: 'pointer'
-
         }
     };
 
@@ -297,7 +485,9 @@ $(function() {
     }
 
     function shuffle(o) {
-        for (var j, x, i = o.length; i; j = parseInt(Math.random() * i),x = o[--i],o[i] = o[j],o[j] = x);
+        for (var j, x, i = o.length; i; j = parseInt(Math.random() * i),x = o[--i],o[i] = o[j],o[j] = x) {
+        }
+        ;
         return o;
     }
 
@@ -311,12 +501,12 @@ $(function() {
                          $('#answers').empty().show('fast');
 
                          var $when = $('<div>').addClass('when').appendTo('#answers');
-                         var $what = $('<div>').addClass('what').appendTo('#answers');
-                         var $how = $('<div>').addClass('how').appendTo('#answers');
+                         $('<div>').addClass('what').appendTo('#answers');
+                         $('<div>').addClass('how').appendTo('#answers');
                          $('#answers').find('div').addClass('box');
 
                          var phase = data[0].phase;
-                         $phases = $('<ol>');
+                         var $phases = $('<ol>');
                          $('<li>').text('before').addClass('requirements').addClass(phase.indexOf('requirements') >= 0 ? 'on' : 'off').appendTo($phases);
                          $('<li>').text('design & build').addClass('design').addClass(phase.indexOf('design') >= 0 ? 'on' : 'off').appendTo($phases);
                          $('<li>').text('refine').addClass('test').addClass(phase.indexOf('test') >= 0 ? 'on' : 'off').appendTo($phases);
@@ -386,7 +576,7 @@ $(function() {
 
 
                      }).bind('passBy',
-                            function(e, item) {
+                            function() {
                                 //$('#answers').animate({opacity: .9},'fast');
                             }).bind('clickOn',
                                    function(e, item) {
@@ -413,6 +603,8 @@ $(function() {
 
 
     $('#circle').trigger('spinTo', items[3].label);
+
+    $('#data').peelOff();
 
 });
 
