@@ -1,7 +1,10 @@
 source 'http://rubygems.org'
 ruby '2.0.0'
 gem 'rails'
-gem 'rails_12factor'
+gem 'rails_12factor', group: :production
+gem 'unicorn'
+gem 'pg'
+gem 'sqlite3', group: :development
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
