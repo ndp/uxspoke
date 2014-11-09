@@ -18,7 +18,7 @@ $(function() {
             });
         };
 
-        var width = 1000;
+        var width = 1100;
         Csster.style({
             '#panel': {
                 backgroundColor: '#fffbee',
@@ -389,7 +389,9 @@ $(function() {
             borderRightColor: bg.darken(20),
             borderBottomColor: bg.darken(20)}).appendTo($control);
         $control.click(function() {
-            $this.css({position: 'fixed', height: '100%', weight: '100%',zIndex: 10000, overflow: 'auto'}).slideDown();
+            $this.css({position: 'fixed', height: '100%', width: 1100,
+                weight: '100%',
+                zIndex: 10000, overflow: 'auto'}).slideDown();
         });
         $this.click(function() { $this.slideUp();})
 
