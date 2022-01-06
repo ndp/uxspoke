@@ -1,9 +1,8 @@
 source 'http://rubygems.org'
-ruby '2.0.0'
+ruby '2.7.2'
 gem 'rails'
 gem 'rails_12factor', group: :production
 gem 'unicorn'
-gem 'pg'
 gem 'sqlite3', group: :development
 
 # Bundle the extra gems:
